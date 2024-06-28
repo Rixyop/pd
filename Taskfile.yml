@@ -1,0 +1,25 @@
+version: "3"
+
+vars:
+    app_name: vpeer_usergw
+
+tasks:
+    build:
+        desc: Build the app
+        cmds:
+        - GOFLAGS=-mod=mod GOARCH=amd64 GOOS=windows go build -o ./out/windows/{{.app_name}}/{{.app_name}}.exe cmd/main.go
+        - GOFLAGS=-mod=mod GOARCH=amd64 GOOS=linux go build -o ./out/linux/{{.app_name}}/{{.app_name}} cmd/main.go
+
+    generate: 
+        desc: Compile protobuf files
+        aliases: [gen]
+        vars:
+            VERSION: v1
+        cmds:
+        # - protoc --go_out=./proto/api/file/ --go-grpc_out=./proto/api/file/ ./proto/protos/file/*.proto
+        # - protoc --go_out=./proto/api/room/ --go-grpc_out=./proto/api/room/ ./proto/protos/room/*.proto
+
+    run: 
+        desc: Run the app
+        cmds:
+        - GOFLAGS=-mod=mod go run ./cmd/main.go --listen-address=127.0.0.1:8080 --db-host=localhost --db-port=5432 --db-name=seen --db-username=postgres --db-password=postgres
