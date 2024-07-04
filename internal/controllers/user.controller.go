@@ -14,6 +14,8 @@ type (
 		GetSelfInfo(*fiber.Ctx) error
 		GetUserInfoByUserId(*fiber.Ctx) error
 		GetGarrisonUsers(*fiber.Ctx) error
+		GetGarrisonUsersByRole(*fiber.Ctx) error
+		AddUser(*fiber.Ctx) error
 	}
 	userController struct {
 		userService services.UserService
@@ -124,17 +126,31 @@ func (c *userController) AddUser(ctx *fiber.Ctx) error {
 	userDTO := new(models.UserDTO)
 	if err := ctx.BodyParser(userDTO); err != nil {
 		return ctx.Status(400).JSON(map[string]interface{}{
-			"message": "خطا در درخواست. کد خطا 1006",
+			"message": "خطا در درخواست. کد خطا 1010",
 			"success": false,
 		})
 	}
+	localData := ctx.Locals("user_data")
+	if localData == nil {
+		return ctx.JSON(map[string]interface{}{
+			"message": "کاربر پیدا نشد. کد خطا 1011",
+			"success": false,
+		})
+	}
+	userData := localData.(models.Token)
+
 	userDTO.CreatedAt = time.Now().Local()
+	userDTO.GarrisonId = userData.GarrisonId
+
 	err := c.userService.AddUser(userDTO)
 	if err != nil {
 		return ctx.Status(err.ErrorToHttpStatus()).JSON(err.ErrorToJsonMessage())
 	}
 	return ctx.JSON(map[string]interface{}{
 		"message": "حساب کابری با موفقیت ساخته شد",
+		"data": map[string]interface{}{
+			"username": userDTO.Username,
+		},
 		"success": true,
 	})
 }

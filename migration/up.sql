@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS "users" CASCADE;
 DROP TABLE IF EXISTS "passwords" CASCADE;
-DROP TABLE IF EXISTS "battalions" CASCADE;
-DROP TABLE IF EXISTS "companies" CASCADE;
-DROP TABLE IF EXISTS "clusters" CASCADE;
+DROP TABLE IF EXISTS "users" CASCADE;
 DROP TABLE IF EXISTS "courses" CASCADE;
 DROP TABLE IF EXISTS "course_coaches" CASCADE;
 DROP TABLE IF EXISTS "coach_absenteeism" CASCADE;
 DROP TABLE IF EXISTS "classes" CASCADE;
+DROP TABLE IF EXISTS "battalions" CASCADE;
+DROP TABLE IF EXISTS "companies" CASCADE;
+DROP TABLE IF EXISTS "clusters" CASCADE;
 DROP TABLE IF EXISTS "garrisons" CASCADE;
 
 CREATE TABLE "garrisons" (
@@ -42,7 +42,7 @@ CREATE TABLE "battalions" (
 );
 
 CREATE TABLE "companies" (
-    "id" SERIAL PRIMARY KEY,
+    "id" VARCHAR(40) PRIMARY KEY,
     "garrison_id" INTEGER NOT NULL REFERENCES "garrisons" (id),
     "battalion_id" INTEGER NOT NULL REFERENCES "battalions" (id),
     "name" TEXT NOT NULL,
@@ -50,16 +50,17 @@ CREATE TABLE "companies" (
 );
 
 CREATE TABLE "clusters" (
-    "id" SERIAL PRIMARY KEY,
+    "id" VARCHAR(40) PRIMARY KEY,
     "garrison_id" INTEGER NOT NULL REFERENCES "garrisons" (id),
     "battalion_id" INTEGER REFERENCES "battalions" (id), 
-    "company_id" INTEGER REFERENCES "companies" (id),
+    "company_id" VARCHAR(40) REFERENCES "companies" (id),
     "name" TEXT NOT NULL,
     "created_at" TIMESTAMP NOT NULL
 );
 
 CREATE TABLE "courses"(
     "id" VARCHAR(40) PRIMARY KEY,
+    "garrison_id" INTEGER NOT NULL REFERENCES "garrisons" (id),
     "name" TEXT NOT NULL,
     "count" INTEGER NOT NULL,
     "priority" INTEGER NOT NULL,
@@ -69,6 +70,7 @@ CREATE TABLE "courses"(
 CREATE TABLE "course_coaches"(
     "course_id" VARCHAR(40) NOT NULL REFERENCES "courses" (id),
     "coach_id" VARCHAR(40) REFERENCES "users" (id),
+    "garrison_id" INTEGER NOT NULL REFERENCES "garrisons" (id),
     UNIQUE (course_id, coach_id)
 );
 
@@ -80,6 +82,7 @@ CREATE TABLE "coach_absenteeism"(
 CREATE TABLE "classes"(
     "id" VARCHAR(40) PRIMARY KEY,
     "course_id" VARCHAR(40) NOT NULL,
+    "garrison_id" INTEGER NOT NULL REFERENCES "garrisons" (id),
     "start_date" TIMESTAMP NOT NULL,
     "end_date" TIMESTAMP NOT NULL,
     FOREIGN KEY (course_id) REFERENCES "courses" (id)
@@ -92,20 +95,20 @@ INSERT INTO "garrisons" ("name", "location", "creator", "created_at")
 VALUES ('پادگان1', 'بابل', 'admin', NOW());
 
 INSERT INTO "users" ("id", "first_name", "last_name", "username", "role", "avatar", "garrison_id", "created_at")
-VALUES ('6dXTEwafl0fjH9eg$LYTdJDLjYzh7Mo1M1PdaAfg', 'امیر', 'رضایی', 'amir', 'class_affairs', 'person', 
+VALUES ('6dXTEwafl0fjH9egLYTdJDLjYzh7Mo1M1PdaAfg', 'امیر', 'رضایی', 'amir', 'class_affairs', 'person', 
     (SELECT "id" FROM "garrisons" WHERE "name" = 'پادگان1'), NOW());
 
 INSERT INTO "passwords" ("user_id", "password", "last_update_at")
-VALUES ('6dXTEwafl0fjH9eg$LYTdJDLjYzh7Mo1M1PdaAfg', '$argon2id$v=19$m=65536,t=3,p=4$PhSype6dXTEwafl0fjH9eg$LYTdJDLjYzh7Mo1M1P/oSrylWYAzrsLCMLeDH9GsikI', NOW());
+VALUES ('6dXTEwafl0fjH9egLYTdJDLjYzh7Mo1M1PdaAfg', '$argon2id$v=19$m=65536,t=3,p=4$PhSype6dXTEwafl0fjH9eg$LYTdJDLjYzh7Mo1M1P/oSrylWYAzrsLCMLeDH9GsikI', NOW());
 
 INSERT INTO "battalions" ("garrison_id", "name", "created_at")
 VALUES ((SELECT "id" FROM "garrisons" WHERE "name" = 'پادگان1'), 'انتقامی', NOW());
 
-INSERT INTO "companies" ("garrison_id", "battalion_id", "name", "created_at")
-VALUES ((SELECT "id" FROM "garrisons" WHERE "name" = 'پادگان1'), 
-    (SELECT "id" FROM "battalions" WHERE "name" = 'انتقامی'), 'گروهان 2', NOW());
+-- INSERT INTO "companies" ("garrison_id", "battalion_id", "name", "created_at")
+-- VALUES ((SELECT "id" FROM "garrisons" WHERE "name" = 'پادگان1'), 
+--     (SELECT "id" FROM "battalions" WHERE "name" = 'انتقامی'), 'گروهان 2', NOW());
 
-INSERT INTO "clusters" ("garrison_id", "battalion_id", "company_id", "name", "created_at")
-VALUES ((SELECT "id" FROM "garrisons" WHERE "name" = 'پادگان1'), 
-    (SELECT "id" FROM "battalions" WHERE "name" = 'انتقامی'), 
-    (SELECT "id" FROM "companies" WHERE "name" = 'گروهان 2'), 'دسته 1', NOW());
+-- INSERT INTO "clusters" ("garrison_id", "battalion_id", "company_id", "name", "created_at")
+-- VALUES ((SELECT "id" FROM "garrisons" WHERE "name" = 'پادگان1'), 
+--     (SELECT "id" FROM "battalions" WHERE "name" = 'انتقامی'), 
+--     (SELECT "id" FROM "companies" WHERE "name" = 'گروهان 2'), 'دسته 1', NOW());

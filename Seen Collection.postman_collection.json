@@ -1,0 +1,843 @@
+{
+	"info": {
+		"_postman_id": "de749a47-fb08-484e-b765-0a9b21d8d1f1",
+		"name": "Seen Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26284948"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"amir\",\r\n    \"password\":\"admin\",\r\n    \"remember_me\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_address}}/api/auth/login",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get Self Data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_address}}/api/usr/get/self",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"usr",
+								"get",
+								"self"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_address}}/api/usr/get/6dXTEwafl0fjH9egLYTdJDLjYzh7Mo1M1PdaAfg",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"usr",
+								"get",
+								"6dXTEwafl0fjH9egLYTdJDLjYzh7Mo1M1PdaAfg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Garrison Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_address}}/api/usr/get/garrison/1",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"usr",
+								"get",
+								"garrison",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Garrison Users By Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_address}}/api/usr/get/garrison/1/class_affairs",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"usr",
+								"get",
+								"garrison",
+								"1",
+								"class_affairs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\":\"mohammad\",\r\n    \"last_name\":\"mohammadi\",\r\n    \"username\":\"mohammad_m\",\r\n    \"role\":\"coach\",\r\n    \"avatar\":\"person\",\r\n    \"password\":\"admin\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_address}}/api/usr/add",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"usr",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Garrison",
+			"item": [
+				{
+					"name": "Get Garrison Data By Garrison Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_address}}/api/garrison/get/1",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"garrison",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Battalion",
+			"item": [
+				{
+					"name": "Add Battalion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"garrison_id\":1,\r\n    \"name\":\"انتقامی\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_address}}/api/battalion/add",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"battalion",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List of Battalions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_address}}/api/battalion/get/list/1",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"battalion",
+								"get",
+								"list",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Battalion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_address}}/api/battalion/del/1/1",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"battalion",
+								"del",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "Add Company",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"garrison_id\":1,\r\n    \"battalion_id\":1,\r\n    \"name\":\"گروهان 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_address}}/api/company/add",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"company",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List of Company",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_address}}/api/company/get/list/1/1",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"company",
+								"get",
+								"list",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Company",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_address}}/api/company/del/1/1/2101511285413913077949281350835404341339",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"company",
+								"del",
+								"1",
+								"1",
+								"2101511285413913077949281350835404341339"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cluster",
+			"item": [
+				{
+					"name": "Add Cluster",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"garrison_id\":1,\r\n    \"battalion_id\":1,\r\n    \"company_id\":\"9330138201530983959488542468896156821233\",\r\n    \"name\":\"دسته اول\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_address}}/api/cluster/add",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"cluster",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List of Cluster",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"garrison_id\":1,\r\n    \"battalion_id\":1,\r\n    \"company_id\":\"9330138201530983959488542468896156821233\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_address}}/api/cluster/get/list",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"cluster",
+								"get",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cluster",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"garrison_id\":1,\r\n    \"battalion_id\":1,\r\n    \"company_id\":\"9330138201530983959488542468896156821233\",\r\n    \"cluster_id\":\"7031983583274947252907600399881182087206\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_address}}/api/cluster/del",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"cluster",
+								"del"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Course",
+			"item": [
+				{
+					"name": "Add Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"garrison_id\":1,\r\n    \"name\":\"رزم انفرادی\",\r\n    \"count\":15,\r\n    \"priority\":5,\r\n    \"class_time\":90\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_address}}/api/course/add",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"course",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Garrison Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_address}}/api/course/get/list/1",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"course",
+								"get",
+								"list",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_address}}/api/course/del/1/2763596966899920321405290438653956892948",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"course",
+								"del",
+								"1",
+								"2763596966899920321405290438653956892948"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CourseCoach",
+			"item": [
+				{
+					"name": "Add CourseCoach",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course_id\":\"9383870189640059712532700451320654212310\",\r\n    \"coach_id\":\"Cwwnb5WFEgdluM1x6It5bhMYg2061SqLB6IN6SYQ\",\r\n    \"garrison_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_address}}/api/cc/add",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"cc",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List Of CourseCoaches",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_address}}/api/cc/get/list/1",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"cc",
+								"get",
+								"list",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete CourseCoach",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_address}}/api/cc/del/9383870189640059712532700451320654212310",
+							"host": [
+								"{{server_address}}"
+							],
+							"path": [
+								"api",
+								"cc",
+								"del",
+								"9383870189640059712532700451320654212310"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "server_address",
+			"value": "127.0.0.1:8080",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOnsidXNlcl9pZCI6IjZkWFRFd2FmbDBmakg5ZWdMWVRkSkRMall6aDdNbzFNMVBkYUFmZyIsInJvbGUiOiJjbGFzc19hZmZhaXJzIiwiZ2Fycmlzb25faWQiOjF9LCJpc3MiOiJzZWVuIiwiZXhwIjoxNzIwMTM0ODE5LCJpYXQiOjE3MjAxMTMyMTl9.bdgWoSj-SkAaz8dnK7f2UNdCTegEt01IP2odxiAmuJE",
+			"type": "string"
+		}
+	]
+}

@@ -5,6 +5,7 @@ import (
 	"seen/internal/models"
 	"seen/internal/repository"
 	"seen/internal/types"
+	"seen/internal/utils"
 )
 
 type (
@@ -43,6 +44,16 @@ func (c *userService) AddUser(data *models.UserDTO) *types.Error {
 		return types.NewBadRequestError("نام کاربری نباید سمبل و عدد داشته باشد. کد خطا 4")
 	}
 
+	hashedPassword, err := utils.HashPassword([]byte(data.Password))
+	if err != nil {
+		return err
+	}
+	data.Password = hashedPassword
+	userIdGen, rerr := utils.NextAlphanumericString(40)
+	if rerr != nil {
+		return types.NewBadRequestError("خطای داخلی رخ داده است. کد خطا 6")
+	}
+	data.UserId = userIdGen
 	res, err := c.repository.GetUserByUsername(data.Username)
 	if err != nil {
 		if err.Code != 5 {
@@ -53,5 +64,10 @@ func (c *userService) AddUser(data *models.UserDTO) *types.Error {
 		return types.NewBadRequestError("نام کابری قبلا ثبت شده است. کد خطا 5")
 	}
 
-	return c.repository.AddUser(data)
+	err = c.repository.AddUser(data)
+	if err != nil {
+		return err
+	}
+
+	return c.repository.AddPassword(data.UserId, data.Password)
 }

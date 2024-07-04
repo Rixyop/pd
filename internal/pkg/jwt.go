@@ -59,6 +59,9 @@ func (s *jwtService) VerifyToken(token string) (*jwtCustomClaim, *types.Error) {
 
 	jwtToken, err := jwt.ParseWithClaims(token, &jwtCustomClaim{}, keyFunc)
 	if err != nil {
+		if err.Error() == "token has invalid claims: token is expired" {
+			return nil, types.NewPermissionDeniedError("توکن نامعتبر می باشد")
+		}
 		return nil, types.NewInternalError("خطای داخلی رخ داده است. کد خطا 5")
 	}
 

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"seen/internal/controllers"
 	"seen/internal/database"
+	"seen/internal/middleware"
 	"seen/internal/pkg"
 	"seen/internal/repository"
 	"seen/internal/routes"
@@ -39,11 +40,26 @@ func RunServer() {
 	var (
 		repository repository.SeenRepository = repository.NewSeenRepository(db)
 
-		jwtService pkg.JWTService = pkg.NewJWTService()
+		jwtService        pkg.JWTService               = pkg.NewJWTService()
+		middlewareService middleware.MiddlewareService = middleware.NewMIddlewareService(jwtService)
 
-		authService services.AuthService = services.NewAuthService(repository, jwtService)
+		authService        services.AuthService        = services.NewAuthService(repository, jwtService)
+		userService        services.UserService        = services.NewUserService(repository)
+		garrisonService    services.GarrisonService    = services.NewGarrisonService(repository)
+		battalionService   services.BattalionService   = services.NewBattalionService(repository)
+		companyService     services.CompanyService     = services.NewCompanyService(repository)
+		clusterService     services.ClusterService     = services.NewClusterService(repository)
+		courseService      services.CourseService      = services.NewCourseService(repository)
+		courseCoachService services.CourseCoachService = services.NewCourseCoachService(repository)
 
-		authController controllers.AuthController = controllers.NewAuthController(authService)
+		authController        controllers.AuthController        = controllers.NewAuthController(authService)
+		userController        controllers.UserController        = controllers.NewUserController(userService)
+		garrisonController    controllers.GarrisonController    = controllers.NewGarrisonController(garrisonService)
+		battalionController   controllers.BattalionController   = controllers.NewBattalionController(battalionService)
+		companyController     controllers.CompanyController     = controllers.NewCompanyController(companyService)
+		clusterController     controllers.ClusterController     = controllers.NewClusterController(clusterService)
+		courseController      controllers.CourseController      = controllers.NewCourseService(courseService)
+		courseCoachController controllers.CourseCoachController = controllers.NewCourseCoachController(courseCoachService)
 	)
 
 	// Create a new Fiber instance.
@@ -55,6 +71,13 @@ func RunServer() {
 	v1 := app.Group("/api")
 
 	routes.AuthGroup(v1, authController)
+	routes.UserGroup(v1, userController, middlewareService)
+	routes.GarrisonGroup(v1, garrisonController, middlewareService)
+	routes.BattalionGroup(v1, battalionController, middlewareService)
+	routes.CompanyGroup(v1, companyController, middlewareService)
+	routes.ClusterGroup(v1, clusterController, middlewareService)
+	routes.CourseGroup(v1, courseController, middlewareService)
+	routes.CourseCoachGroup(v1, courseCoachController, middlewareService)
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Pong!")
